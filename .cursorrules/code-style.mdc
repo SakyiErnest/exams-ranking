@@ -1,0 +1,20 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+"Adhere to the ESLint configuration already set up in the project."
+
+"Write clean, well-documented, and maintainable TypeScript code."
+
+"Follow React best practices for component development (functional components are preferred)."
+
+"Utilize Next.js conventions, especially for the App Router (organization of app directory, server components by default, API routes in app/api, etc.)."
+
+"Apply Tailwind CSS utility classes directly in the JSX for styling. Aim for readability and maintainability of the class names."
+
+"When creating React components, consider their reusability and break down complex UIs into smaller, manageable components."
+
+"Use descriptive variable and function names."
+
+"Handle potential errors gracefully, especially when interacting with the database."

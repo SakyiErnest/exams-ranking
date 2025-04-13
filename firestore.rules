@@ -1,0 +1,187 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Common helper functions
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    // Check if the current user is the owner of the document
+    function isOwner(teacherId) {
+      return request.auth.uid == teacherId;
+    }
+
+    // Check if user belongs to the specified organization
+    // During transition, allow access if organizationId is not present
+    function belongsToOrganization(organizationId) {
+      return isSignedIn() && (
+             // If the document doesn't have an organizationId field, allow access
+             !('organizationId' in resource.data) ||
+             // Or if the user profile doesn't exist yet
+             !exists(/databases/$(database)/documents/userProfiles/$(request.auth.uid)) ||
+             // Or if the user belongs to the organization
+             get(/databases/$(database)/documents/userProfiles/$(request.auth.uid)).data.organizationId == organizationId
+      );
+    }
+
+    // Check if user has the specified role in their organization
+    // During transition, allow access if user profile doesn't exist yet
+    function hasRole(role) {
+      return isSignedIn() && (
+             // If the user profile doesn't exist yet
+             !exists(/databases/$(database)/documents/userProfiles/$(request.auth.uid)) ||
+             // Or if the user has the specified role
+             get(/databases/$(database)/documents/userProfiles/$(request.auth.uid)).data.role == role
+      );
+    }
+
+    // Check if user has admin role
+    function isAdmin() {
+      return hasRole('admin');
+    }
+
+    // Check if user has teacher role
+    function isTeacher() {
+      return hasRole('teacher');
+    }
+
+    // Check if user has department head role
+    function isDepartmentHead() {
+      return hasRole('department_head');
+    }
+
+    // Base rule: All data is private by default
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Backward compatibility rule for existing data without organizationId
+    // This is a temporary rule during the transition to multi-tenant architecture
+    match /{collection}/{docId} {
+      allow read: if isSignedIn() &&
+                   !('organizationId' in resource.data) &&
+                   (collection != 'organizations' && collection != 'userProfiles' && collection != 'organizationInvitations');
+
+      allow write: if isSignedIn() &&
+                    (collection != 'organizations' && collection != 'userProfiles' && collection != 'organizationInvitations') &&
+                    (collection == 'activityLogs' || isOwner(request.resource.data.teacherId));
+    }
+
+    // Organizations collection
+    match /organizations/{organizationId} {
+      allow read: if belongsToOrganization(organizationId);
+      allow create: if isSignedIn(); // Anyone can create an organization
+      allow update: if belongsToOrganization(organizationId) && isAdmin();
+      allow delete: if false; // Organizations should never be deleted
+    }
+
+    // Organization Invitations collection
+    match /organizationInvitations/{invitationId} {
+      allow read: if isSignedIn() &&
+                   (resource.data.email == request.auth.token.email ||
+                    belongsToOrganization(resource.data.organizationId) && isAdmin());
+      allow create: if belongsToOrganization(request.resource.data.organizationId) && isAdmin();
+      allow update: if belongsToOrganization(resource.data.organizationId) && isAdmin();
+      allow delete: if belongsToOrganization(resource.data.organizationId) && isAdmin();
+    }
+
+    // User Profiles collection
+    match /userProfiles/{userId} {
+      allow read: if isSignedIn() && (request.auth.uid == userId ||
+                  get(/databases/$(database)/documents/userProfiles/$(request.auth.uid)).data.organizationId ==
+                  get(/databases/$(database)/documents/userProfiles/$(userId)).data.organizationId && isAdmin());
+      allow create: if isSignedIn() && (request.auth.uid == userId || isAdmin());
+      allow update: if isSignedIn() && (request.auth.uid == userId ||
+                   get(/databases/$(database)/documents/userProfiles/$(request.auth.uid)).data.organizationId ==
+                   get(/databases/$(database)/documents/userProfiles/$(userId)).data.organizationId && isAdmin());
+      allow delete: if false; // User profiles should never be deleted
+    }
+
+    // Grade Levels collection - updated for multi-tenant
+    match /gradeLevels/{gradeId} {
+      allow read: if isSignedIn() && belongsToOrganization(resource.data.organizationId);
+      allow create: if isSignedIn() && isOwner(request.resource.data.teacherId) &&
+                    belongsToOrganization(request.resource.data.organizationId);
+      allow update, delete: if isSignedIn() && isOwner(resource.data.teacherId) &&
+                             belongsToOrganization(resource.data.organizationId);
+    }
+
+    // Academic Years collection
+    match /academicYears/{yearId} {
+      allow read: if isSignedIn() && belongsToOrganization(resource.data.organizationId);
+      allow create: if isSignedIn() && isOwner(request.resource.data.teacherId) &&
+                    belongsToOrganization(request.resource.data.organizationId);
+      allow update, delete: if isSignedIn() && isOwner(resource.data.teacherId) &&
+                             belongsToOrganization(resource.data.organizationId);
+    }
+
+    // Trimesters collection
+    match /trimesters/{trimesterId} {
+      allow read: if isSignedIn() && belongsToOrganization(resource.data.organizationId);
+      allow create: if isSignedIn() && isOwner(request.resource.data.teacherId) &&
+                    belongsToOrganization(request.resource.data.organizationId);
+      allow update, delete: if isSignedIn() && isOwner(resource.data.teacherId) &&
+                             belongsToOrganization(resource.data.organizationId);
+    }
+
+    // Subjects collection
+    match /subjects/{subjectId} {
+      allow read: if isSignedIn() && belongsToOrganization(resource.data.organizationId);
+      allow create: if isSignedIn() && isOwner(request.resource.data.teacherId) &&
+                    belongsToOrganization(request.resource.data.organizationId);
+      allow update, delete: if isSignedIn() && isOwner(resource.data.teacherId) &&
+                             belongsToOrganization(resource.data.organizationId);
+    }
+
+    // Students collection
+    match /students/{studentId} {
+      allow read: if isSignedIn() && belongsToOrganization(resource.data.organizationId);
+      allow create: if isSignedIn() && isOwner(request.resource.data.teacherId) &&
+                    belongsToOrganization(request.resource.data.organizationId);
+      allow update, delete: if isSignedIn() && isOwner(resource.data.teacherId) &&
+                             belongsToOrganization(resource.data.organizationId);
+    }
+
+    // Assessment Components collection
+    match /assessmentComponents/{componentId} {
+      allow read: if isSignedIn() && belongsToOrganization(resource.data.organizationId);
+      allow create: if isSignedIn() && isOwner(request.resource.data.teacherId) &&
+                    belongsToOrganization(request.resource.data.organizationId);
+      allow update, delete: if isSignedIn() && isOwner(resource.data.teacherId) &&
+                             belongsToOrganization(resource.data.organizationId);
+    }
+
+    // Student Scores collection
+    match /studentScores/{scoreId} {
+      allow read: if isSignedIn() && belongsToOrganization(resource.data.organizationId);
+      allow create: if isSignedIn() && isOwner(request.resource.data.teacherId) &&
+                    belongsToOrganization(request.resource.data.organizationId);
+      allow update, delete: if isSignedIn() && isOwner(resource.data.teacherId) &&
+                             belongsToOrganization(resource.data.organizationId);
+    }
+
+    // Activity Logs collection
+    match /activityLogs/{logId} {
+      allow read: if isSignedIn() && isOwner(resource.data.teacherId) &&
+                   belongsToOrganization(resource.data.organizationId);
+      allow create: if isSignedIn() && isOwner(request.resource.data.teacherId) &&
+                     belongsToOrganization(request.resource.data.organizationId);
+      // Don't allow updates or deletions of activity logs
+      allow update, delete: if false;
+    }
+
+    // User Profiles collection
+    match /userProfiles/{userId} {
+      allow read: if isSignedIn() && request.auth.uid == userId;
+      allow create, update: if isSignedIn() && request.auth.uid == userId;
+      allow delete: if false; // Don't allow profile deletion
+    }
+
+    // User Settings collection
+    match /userSettings/{userId} {
+      allow read: if isSignedIn() && request.auth.uid == userId;
+      allow create, update: if isSignedIn() && request.auth.uid == userId;
+      allow delete: if false; // Don't allow settings deletion
+    }
+  }
+}

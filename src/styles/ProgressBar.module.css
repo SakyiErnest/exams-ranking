@@ -1,0 +1,31 @@
+.progressContainer {
+  height: 0.5rem;
+  width: 4rem;
+  border-radius: 9999px;
+  background-color: #e5e7eb; /* gray-200 */
+}
+
+.progressBar {
+  height: 0.5rem;
+  border-radius: 9999px;
+}
+
+.progressBarIndigo {
+  background-color: #6366f1; /* indigo-500 */
+}
+
+.progressBarGreen {
+  background-color: #22c55e; /* green-500 */
+}
+
+/* Width classes for different percentages */
+.w10 { width: 10%; }
+.w20 { width: 20%; }
+.w30 { width: 30%; }
+.w40 { width: 40%; }
+.w50 { width: 50%; }
+.w60 { width: 60%; }
+.w70 { width: 70%; }
+.w80 { width: 80%; }
+.w90 { width: 90%; }
+.w100 { width: 100%; }

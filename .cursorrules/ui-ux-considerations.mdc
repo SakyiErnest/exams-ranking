@@ -1,0 +1,9 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+"Focus on creating a modern and responsive user interface using Next.js and Tailwind CSS."
+"Ensure that the application is intuitive and easy for a teacher to use."
+"The editing, updating, and deleting of student data should be effortless."
+"The 'notebook-like format' for adding multiple subjects should be reflected in the UI with clear separation and easy navigation between subjects."

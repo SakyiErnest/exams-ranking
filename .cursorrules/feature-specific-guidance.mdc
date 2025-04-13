@@ -1,0 +1,13 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+Ranking Logic: "Implement the student ranking calculation based on 50% examination score and 50% class assessment score. The class assessment score is derived from Test 1, Test 2, Group Work, and Project Work (which sum to 100% but are weighted at 50% of the final grade)."
+User Authentication: "If user authentication is needed, use Firebase Authentication. Each teacher should have their own independent dashboard and data."
+Student Data Management: "Implement functionality to add, edit, update, and delete student information. Each student should have a unique identifier."
+Dashboard: "Help design and implement a user-specific dashboard that displays relevant information to the teacher. Consider highlighting student strengths and weaknesses based on their scores in different assessment components."
+Multi-Subject Support: "Implement the ability for teachers to add and manage multiple subjects independently. Ensure that student data is managed separately for each subject."
+Student Name Reusability: "When adding a new subject for a specific grade level, provide suggestions or an interface to pull existing student names already added for that grade level to avoid re-entering the same information."
+Reporting: "Assist in generating ranked student reports as PDF documents. The ranking should be displayed as '1st', '2nd', '3rd', etc. Use color-coding to indicate student performance levels (e.g., green for top performers, yellow for average, red for below average)."
+Import Alias: "The import alias @ is set up for the src directory. Use this alias for cleaner imports."

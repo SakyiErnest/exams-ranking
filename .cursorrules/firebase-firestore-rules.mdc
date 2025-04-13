@@ -1,0 +1,14 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+"When working with Firestore, use asynchronous operations (async/await)."
+
+"Design the Firestore data structure to efficiently store and retrieve student data, grade levels, subjects, assessments, and scores."
+
+"Consider using separate collections for grade levels, subjects, students, and scores to maintain organization."
+
+"When querying data, aim for efficient queries to avoid unnecessary reads."
+
+"When updating or deleting data, ensure proper error handling and consider potential side effects."

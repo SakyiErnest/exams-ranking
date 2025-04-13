@@ -1,0 +1,14 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+"You are assisting in the development of a web application for a French teacher to rank students based on examination scores and class assessments."
+
+"The primary programming language is TypeScript."
+
+"The frontend framework is Next.js (using the App Router)."
+
+"Styling should be implemented using Tailwind CSS."
+
+"Data will be stored and managed using Firebase Firestore."
