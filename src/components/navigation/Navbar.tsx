@@ -63,6 +63,18 @@ export default function Navbar() {
                                     Subjects
                                 </Link>
                                 <Link
+                                    href="/dashboard/analytics/ai-insights"
+                                    className={`inline-flex items-center border-b-2 px-1 pt-1 text-sm font-medium ${pathname === '/dashboard/analytics/ai-insights'
+                                            ? 'border-white text-white'
+                                            : 'border-transparent text-blue-100 hover:border-blue-200 hover:text-white'
+                                        }`}
+                                >
+                                    <svg xmlns="http://www.w3.org/2000/svg" className="mr-1 h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                                        <path fillRule="evenodd" d="M3 4a1 1 0 011-1h4a1 1 0 010 2H6.414l2.293 2.293a1 1 0 01-1.414 1.414L5 6.414V8a1 1 0 01-2 0V4zm9 1a1 1 0 110-2h4a1 1 0 011 1v4a1 1 0 11-2 0V6.414l-2.293 2.293a1 1 0 11-1.414-1.414L13.586 5H12zm-9 7a1 1 0 112 0v1.586l2.293-2.293a1 1 0 011.414 1.414L6.414 15H8a1 1 0 110 2H4a1 1 0 01-1-1v-4zm13-1a1 1 0 011 1v4a1 1 0 01-1 1h-4a1 1 0 110-2h1.586l-2.293-2.293a1 1 0 011.414-1.414L15 13.586V12a1 1 0 011-1z" />
+                                    </svg>
+                                    AI Insights
+                                </Link>
+                                <Link
                                     href="/reports"
                                     className={`inline-flex items-center border-b-2 px-1 pt-1 text-sm font-medium ${pathname === '/reports'
                                             ? 'border-white text-white'
@@ -225,6 +237,20 @@ export default function Navbar() {
                                     }`}
                             >
                                 Subjects
+                            </Link>
+                            <Link
+                                href="/dashboard/analytics/ai-insights"
+                                className={`block border-l-4 py-2 pl-3 pr-4 text-base font-medium ${pathname === '/dashboard/analytics/ai-insights'
+                                        ? 'border-white bg-blue-700 text-white'
+                                        : 'border-transparent text-blue-100 hover:border-blue-300 hover:bg-blue-700 hover:text-white'
+                                    }`}
+                            >
+                                <div className="flex items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" className="mr-2 h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                        <path fillRule="evenodd" d="M3 4a1 1 0 011-1h4a1 1 0 010 2H6.414l2.293 2.293a1 1 0 01-1.414 1.414L5 6.414V8a1 1 0 01-2 0V4zm9 1a1 1 0 110-2h4a1 1 0 011 1v4a1 1 0 11-2 0V6.414l-2.293 2.293a1 1 0 11-1.414-1.414L13.586 5H12zm-9 7a1 1 0 112 0v1.586l2.293-2.293a1 1 0 011.414 1.414L6.414 15H8a1 1 0 110 2H4a1 1 0 01-1-1v-4zm13-1a1 1 0 011 1v4a1 1 0 01-1 1h-4a1 1 0 110-2h1.586l-2.293-2.293a1 1 0 011.414-1.414L15 13.586V12a1 1 0 011-1z" />
+                                    </svg>
+                                    AI Insights
+                                </div>
                             </Link>
                             <Link
                                 href="/reports"
