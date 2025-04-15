@@ -1,40 +1,114 @@
-<<<<<<< HEAD
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+Here's your well-structured and properly formatted `README.md` content using GitHub Markdown style:
 
-## Getting Started
+---
 
-First, run the development server:
+# EduGrade Pro - Academic Performance Management System
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+![EduGrade Pro Logo](#) <!-- Replace '#' with your actual logo image link -->
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🧾 Overview
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+**EduGrade Pro** is a comprehensive academic performance management system tailored for educational institutions. It enables teachers to efficiently track student performance, analyze academic data, generate reports, and manage assessments. The system supports a **multi-tenant architecture**, allowing multiple schools to operate in isolated environments on the same platform.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## ✨ Features
 
-To learn more about Next.js, take a look at the following resources:
+### 🔹 Core Functionality
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- **Student Management**: Add, edit, and manage student profiles.
+- **Grade Tracking**: Record and track student grades across subjects.
+- **Performance Analytics**: Visualize student performance using charts and graphs.
+- **Custom Reports**: Generate customized reports for students, classes, or subjects.
+- **Assessment Calculation**: Compute final scores based on configurable criteria.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### 🔸 Administrative Features
 
-## Deploy on Vercel
+- **Organization Management**: Create and manage school organizations.
+- **User Management**: Role-based access control for teacher accounts.
+- **Token-Based Registration**: Secure onboarding with one-time token invitations.
+- **Multi-Tenant Architecture**: Isolate data securely between different schools.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### 🧑‍🏫 User Experience
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
-=======
-# exams-ranking
->>>>>>> f96a7319f45c2eb089dc5fde3ff2bc7d9febd210
+- **Responsive Design**: Fully functional across desktops, tablets, and smartphones.
+- **Intuitive Interface**: Simple and user-friendly design for educators.
+- **Real-time Updates**: Reactive UI for immediate feedback on changes.
+
+---
+
+## 🛠️ Technology Stack
+
+| Layer        | Technology                            |
+| ------------ | ------------------------------------- |
+| **Frontend** | Next.js 15, React 19, TailwindCSS     |
+| **Backend**  | Firebase (Authentication, Firestore)  |
+| **Auth**     | Email/Password, Google OAuth          |
+| **Hosting**  | Vercel (Frontend), Firebase (Backend) |
+| **Charts**   | Chart.js, React-ChartJS-2             |
+| **Export**   | XLSX, PDF generation                  |
+
+---
+
+## 🚀 Getting Started
+
+### ✅ Prerequisites
+
+Ensure you have the following installed/setup:
+
+- [Node.js](https://nodejs.org/) v18.x or later
+- [npm](https://www.npmjs.com/) v9.x or later
+- [Firebase account](https://firebase.google.com/)
+- [Vercel account](https://vercel.com/) (for frontend deployment)
+
+---
+
+### 📦 Installation
+
+1. **Clone the repository**
+
+   ```bash
+   git clone https://github.com/SakyiErnest/exams-ranking.git
+   cd exams-ranking
+   ```
+
+2. **Install dependencies**
+
+   ```bash
+   npm install
+   ```
+
+3. **Configure Environment Variables**
+
+   Create a `.env.local` file in the root of your project and add the following:
+
+   ```env
+   NEXT_PUBLIC_FIREBASE_API_KEY=your-api-key
+   NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=your-project-id.firebaseapp.com
+   NEXT_PUBLIC_FIREBASE_PROJECT_ID=your-project-id
+   NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=your-project-id.appspot.com
+   NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=your-messaging-sender-id
+   NEXT_PUBLIC_FIREBASE_APP_ID=your-app-id
+   NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID=your-measurement-id
+   ```
+
+4. **Run the development server**
+   ```bash
+   npm run dev
+   ```
+
+---
+
+## 📄 License
+
+This project is licensed under the [MIT License](LICENSE).
+
+---
+
+## 🙌 Contributing
+
+Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
+
+---
+
+Let me know if you’d like a section for **Screenshots**, **Roadmap**, or **Demo Link** added!
